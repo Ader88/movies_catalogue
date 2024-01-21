@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <div class="text-center mt-5">
+        <h1>KATALOG FILMOWY</h1>
+        <em><p class="lead">Książki zmuszają Cię, żebyś im dał coś w zamian, wysilił wyobraźnię i inteligencję,</p></em>
+        <em><p class="lead">tymczasem film można oglądać - i to z przyjemnością - w stanie umysłowiego lenistwa</p></em>
+        <em><p class="lead">~ Paul Auster, "Człowiek w ciemności"</p></em>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 class="mt-5">Witaj w mojej bibliotece filmów</h1>
+            <p class="lead">Znajdziesz tutaj tylko najlepsze tytuły!</p>
+        </div>
+        <div class="col-lg-12 mb-4">
+            <a href="{{ url_for('homepage', list_type='popular') }}" class="btn btn-outline-info {% if current_list == 'popular' %}active{% endif %}">Popular</a>
+            <a href="{{ url_for('homepage', list_type='top_rated') }}" class="btn btn-outline-info {% if current_list == 'top_rated' %}active{% endif %}">Top Rated</a>
+            <a href="{{ url_for('homepage', list_type='upcoming') }}" class="btn btn-outline-info {% if current_list == 'upcoming' %}active{% endif %}">Upcoming</a>
+            <a href="{{ url_for('homepage', list_type='now_playing') }}" class="btn btn-outline-info {% if current_list == 'now_playing' %}active{% endif %}">Now Playing</a>
+        </div>
+        {% for movie in movies %}
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <img class="card-img-top" src="{{ movie.poster_url }}" alt="{{ movie.title }}">
+                <div class="card-body">
+                    <h4 class="card-title">{{ movie.title }}</h4>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ url_for('movie_details', movie_id=movie['id']) }}" class="btn btn-primary">Pokaż więcej</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
